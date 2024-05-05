@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+
+{% block title %}Rooms{% endblock %}
+
+{% block header %}
+<h2>Rooms</h2>
+{% endblock %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/room.js') }}"></script>
+
+
+{% block form %}
+<form class="form" action="#">
+  <fieldset>
+    <legend>Room Information</legend>
+    <div class="form-group">
+      <label for="room-number">Room Number:</label>
+      <input type="text" id="room-number" required>
+    </div>
+    <div class="form-group">
+      <label for="room-capacity">Capacity:</label>
+      <input type="number" id="room-capacity" required>
+    </div>
+    <div class="form-group">
+      <label for="rate-per-night">Price per Night</label>
+      <input type="number" id="rate-per-night" required>
+    </div>
+    <div class="form-group">
+      <label for="room-type">Room Type:</label>
+      <select id="room-type">
+        <option value="Single">Single</option>
+        <option value="Double">Double</option>
+        <option value="Suit">Suit</option>
+      </select>
+    </div>
+  </fieldset>
+
+
+  <button type="submit" onclick="addRoom()">Submit</button>
+</form>
+
+{% endblock %}
+
+{% block table %}
+<table id="rooms-table">
+  <thead>
+    <tr>
+      <th>Room ID</th>
+      <th>Room Number</th>
+      <th>Capacity</th>
+      <th>Rate per Night</th>
+      <th>Room Type</th>
+      <th>Occupancy</th>
+      <th>Housekeeper</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      {% for room in rooms %}
+    <tr>
+      <td>{{ room[0] }}</td>
+      <td>{{ room[1] }}</td>
+      <td>{{ room[2] }}</td>
+      <td><i>$</i>{{ room[3] }}</td>
+      <td>{{ room[4] }}</td>
+      <td>
+        {% if room[5] == 1 %}
+        <img src="static\images\occupied.png" width="71" height="40">
+        {% elif room[5] == 0 %}
+        <img src="static\images\vacant.png" width="71" height="40">
+        {% endif %}
+      </td>
+      <td id="housekeeper">{{ room[6] }}</td>
+      <td><button onclick="deleteRoom('{{ room[0] }}')">Delete</button></td>
+      <td>
+        <button onclick="updateRoom(
+                '{{ room[0] }}',
+                '{{ room[1] }}',
+                '{{ room[2] }}',
+                '{{ room[3] }}',
+                '{{ room[4] }}'
+              )">Update</button>
+      </td>
+    </tr>
+    {% endfor %}
+
+    </tr>
+  </tbody>
+
+  </tr>
+
+  </tbody>
+</table>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/room.js') }}"></script>
+
+{% endblock %}

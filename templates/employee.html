@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% block title %}Employees{% endblock %}
+
+{% block header %}
+<h2>Employees</h2>
+{% endblock %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/emp.js') }}"></script>
+
+
+
+{% block form %}
+<form class="form" action="#">
+
+  <fieldset>
+    <legend>Employee Information</legend>
+    <div class="form-group">
+      <label for="name">First Name:</label>
+      <input type="text" id="first-name" name="name" required>
+    </div>
+    <div class="form-group">
+      <label for="name">Last Name:</label>
+      <input type="text" id="last-name" name="name" required>
+    </div>
+    <div class="form-group">
+      <label for="position">Position</label>
+      <select id="position">
+        <option value="Security">Security</option>
+        <option value="Housekeep">Housekeep</option>
+        <option value="Restaurant">Restaurant</option>
+        <option value="Front Desk">Front Desk</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="salary">Salary:</label>
+      <input type="text" id="salary" required>
+    </div>
+  </fieldset>
+
+  <button onclick="addEmployee()" type="submit">Submit</button>
+</form>
+
+{% endblock %}
+
+{% block table %}
+<table id="employees-table">
+  <thead>
+    <tr>
+      <th>Staff ID</th>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Position</th>
+      <th>Salary</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    <tr>
+      {% for employee in employees %}
+    <tr>
+      <td>{{ employee[0] }}</td>
+      <td>{{ employee[1] }}</td>
+      <td>{{ employee[2] }}</td>
+      <td>{{ employee[3] }}</td>
+      <td><i>$</i>{{ employee[4] }}</td>
+      <td><button onclick="deleteEmployee('{{ employee[0] }}')">Delete</button></td>
+      <td>
+        <button onclick="updateEmployee(
+              '{{ employee[0] }}',
+              '{{ employee[1] }}',
+              '{{ employee[2] }}',
+              '{{ employee[3] }}',
+              '{{ employee[4] }}'
+            )">Update</button>
+      </td>
+    </tr>
+    {% endfor %}
+    </tr>
+  </tbody>
+
+  </tr>
+
+  </tbody>
+</table>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/emp.js') }}"></script>
+
+{% endblock %}

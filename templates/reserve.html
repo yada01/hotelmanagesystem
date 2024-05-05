@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+
+{% block title %}Reservations{% endblock %}
+
+{% block header %}
+<h2>Reservations</h2>
+{% endblock %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/reserve.js') }}"></script>
+
+{% block form %}
+<form class="form" action="#">
+  <fieldset>
+    <legend>Reservation Information</legend>
+    <div class="form-group">
+      <label for="name">Name:</label>
+      <input type="text" id="name" required>
+    </div>
+    <div class="form-group">
+      <label for="phone">Phone Number:</label>
+      <input type="tel" id="phone" required>
+    </div>
+
+    <div class="form-group">
+      <label for="check-in">Check-in-date:</label>
+      <input type="date" id="check-in" required>
+    </div>
+
+    <div class="form-group">
+      <label for="check-out">Check-out-date</label>
+      <input type="date" id="check-out" required>
+    </div>
+
+    <div class="form-group">
+      <label for="number_of_guests">Number of Guests:</label>
+      <input type="number" id="number_of_guests" onchange="setRoomNumber()" required>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend>Room Details</legend>
+    <div class="form-row">
+      <div class="form-group">
+        <label for="room-number">Room Number:</label>
+        <label id="room-number"></label>
+      </div>
+      <div class="form-group">
+        <label for="ppn">Price per Night:</label>
+        <label id="ppn"></label>
+      </div>
+    </div>
+  </fieldset>
+  <button type="submit" onclick="addReserve()">Reserve</button>
+</form>
+
+{% endblock %}
+
+{% block table %}
+<table id="reservation-table">
+  <thead>
+    <tr>
+      <th>Reservation ID</th>
+      <th>Guest Name</th>
+      <th>Phone Num.</th>
+      <th>Check-in-date</th>
+      <th>Check-out-date</th>
+      <th>Number of Guests</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      {% for reserve in reserves %}
+    <tr>
+      <td>{{ reserve[0] }}</td>
+      <td>{{ reserve[1] }}</td>
+      <td>{{ reserve[2] }}</td>
+      <td>{{ reserve[3] }}</td>
+      <td>{{ reserve[4] }}</td>
+      <td>{{ reserve[5] }}</td>
+      <td><button onclick="deleteReserve('{{ reserve[0] }}')">Delete</button></td>
+      <td>
+        <button onclick="updateReserve(
+                '{{ reserve[0] }}',
+                '{{ reserve[1] }}',
+                '{{ reserve[2] }}',
+                '{{ reserve[3] }}',
+                '{{ reserve[4] }}'
+              )">Update</button>
+      </td>
+    </tr>
+    {% endfor %}
+
+    </tr>
+  </tbody>
+</table>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/reserve.js') }}"></script>
+{% endblock %}

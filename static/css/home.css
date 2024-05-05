@@ -1,0 +1,40 @@
+body {
+  background: linear-gradient(0deg, rgba(40,40,40,1) 0%, rgba(62,62,62,1) 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+}
+
+@font-face {
+  font-family: 'font';
+  src: url('/static/fonts/Rabar_038.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+.hover-img {
+  opacity: 0.7;
+  transition: opacity 0.2s ease-in-out;
+  width: 200px;
+  height: 200px;
+}
+
+.hover-img:hover {
+  opacity: 1;
+  cursor: pointer;
+}
+
+.img {
+  text-align: center;
+  margin: 10px;
+}
+
+p {
+  padding-top: 20px;
+  font-size: 40px;
+  color: aliceblue;
+  font-family: 'font';
+}
